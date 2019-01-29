@@ -2,6 +2,10 @@
 
 Simple Snake built in SFML!~
 
+## Dependencies
+
+...SFML https://www.sfml-dev.org/
+
 ## Compilation (Linux)
 
 ```bash
