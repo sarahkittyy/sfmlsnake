@@ -118,6 +118,19 @@ bool Head::testMovement()
 		reset();
 		return true;
 	}
+	
+	//Iterate through all tails.
+	for(auto &i : mTails)
+	{
+		//If the position of the head is the same as one of the tails....
+		if(i.pos == mPos)
+		{
+			//Reset.
+			reset();
+			return true;
+		}	
+	}
+	
 	return false;
 }
 
