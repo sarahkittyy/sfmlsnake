@@ -12,3 +12,7 @@ Simple Snake built in SFML!~
 make release
 ./bin/release/a.out
 ```
+
+## Compilation (Windows)
+
+If someone figures this out, let me know. The Makefile should only need a few changes?
