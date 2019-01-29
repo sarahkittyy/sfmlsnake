@@ -16,6 +16,12 @@ public:
 	Map();
 		
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	
+	void clearTiles();
+	
+	void setTile(sf::Vector2i pos, sf::Color col);
+	
+	bool isFood(sf::Vector2i pos);
 private:
 	sf::VertexArray mQuadVertices;
 	sf::VertexArray mGridVertices;

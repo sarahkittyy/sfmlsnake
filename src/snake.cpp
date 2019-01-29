@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Map.h"
+#include "Head.h"
 
 int main()
 {
@@ -9,6 +10,8 @@ int main()
 	window.setFramerateLimit(60);
 	
 	Map map = Map();
+	
+	Head head = Head(&map);
 	
 	while(window.isOpen())
 	{
@@ -25,6 +28,9 @@ int main()
 				break;
 			}
 		}
+		
+		//Update.
+		head.update();
 		
 		//Draw.
 		window.clear(sf::Color(100,100,255));
