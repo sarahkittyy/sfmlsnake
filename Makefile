@@ -3,7 +3,6 @@ INCDIR = include
 OBJDIR = obj
 OUTDIR = bin
 OUTFILE = a.out
-EXAMPLEDIR = examples
 
 DEBUGDIR = debug
 RELEASEDIR = release
@@ -23,9 +22,6 @@ SOURCES = $(shell find $(SRCDIR) -name "*.cpp")
 OBJ_RELEASE = $(patsubst $(SRCDIR)/%.cpp, $(OBJDIR)/$(RELEASEDIR)/%.o, $(SOURCES))
 OBJ_DEBUG = $(patsubst $(SRCDIR)/%.cpp, $(OBJDIR)/$(DEBUGDIR)/%.o, $(SOURCES))
 
-EXAMPLES = $(shell find $(EXAMPLEDIR)/ -name "*.cpp")
-EXAMPLES_OUT = $(patsubst %.cpp, %.out, $(EXAMPLES))
-
 clean:
 	rm -rf $(OUTDIR)/$(RELEASEDIR)/* || true
 	rm -rf $(OUTDIR)/$(DEBUGDIR)/* || true
@@ -38,11 +34,6 @@ release: dirs $(OBJ_RELEASE)
 	
 debug: dirs $(OBJ_DEBUG)
 	$(CC) $(LINKFLAGS_DEBUG) $(LIB_DEBUG) $(OBJ_DEBUG)
-	
-examples: debug $(EXAMPLES_OUT)
-
-$(EXAMPLEDIR)/%.out: $(EXAMPLEDIR)/%.cpp
-	$(CC) $(LIB) -Wall -I$(INCDIR) -Wno-unused-variable $^ -o $@
 	
 dirs:
 	mkdir -p $(OUTDIR)
