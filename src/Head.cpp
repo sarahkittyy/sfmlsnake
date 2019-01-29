@@ -15,6 +15,8 @@ void Head::reset()
 	mClock.restart();
 	
 	mMap->clearTiles();
+	
+	mTails.clear();
 }
 
 void Head::update()
@@ -106,6 +108,7 @@ void Head::checkFood()
 	if(mMap->isFood(mPos))
 	{
 		mFood++;
+		mMap->collectFood();
 	}
 }
 

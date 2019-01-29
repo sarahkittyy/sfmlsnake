@@ -20,6 +20,13 @@ Map::Map()
 	
 	//Init the vertices.
 	initVertices();
+	
+	mFoodPos = {0,0};
+	
+	srand(time(NULL));
+	
+	//Spawn new food.
+	collectFood();
 }
 
 void Map::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -82,6 +89,7 @@ void Map::clearTiles()
 	{
 		i = sf::Color::White;
 	}
+	setTile(mFoodPos, FOODCOLOR);
 	initQuads();
 }
 
@@ -93,5 +101,19 @@ void Map::setTile(sf::Vector2i pos, sf::Color col)
 
 bool Map::isFood(sf::Vector2i pos)
 {
-	return true;
+	return pos == mFoodPos;
+}
+
+void Map::collectFood()
+{
+	sf::Vector2i lastFood = mFoodPos;
+	
+	while(lastFood == mFoodPos)
+	{
+		mFoodPos.x = rand()%MAP_SIZE.x;
+		mFoodPos.y = rand()%MAP_SIZE.y;
+	}
+	
+	setTile(lastFood, sf::Color::White);
+	setTile(mFoodPos, FOODCOLOR);
 }
