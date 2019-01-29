@@ -38,13 +38,16 @@ void Map::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void Map::initVertices()
 {
+	//Init the grid & the quads.
 	initGrid();
 	initQuads();
 }
 
 void Map::initGrid()
 {
+	//Clear the grid vertices.
 	mGridVertices.clear();
+	//Set the grid line color.
 	sf::Color gridLineColor = sf::Color::Black;
 	//Iterate through all vertical lines.
 	for(int x = 0; x < MAP_SIZE.x; ++x)
@@ -68,14 +71,20 @@ void Map::initGrid()
 
 void Map::initQuads()
 {
+	//Clear the quads.
 	mQuadVertices.clear();
+	
+	//For every tile...
 	for(unsigned i = 0; i < mTiles.size(); ++i)
 	{
+		//Get the current color.
 		sf::Color currentColor = mTiles[i];
+		
+		//Get the X & Y position of the tile.
 		int xpos = i % MAP_SIZE.x;
 		int ypos = i / MAP_SIZE.x;
 		
-		
+		//Append the 4 quad vertices.
 		mQuadVertices.append(sf::Vertex(sf::Vector2f(xpos, ypos), currentColor));
 		mQuadVertices.append(sf::Vertex(sf::Vector2f(xpos + 1, ypos), currentColor));
 		mQuadVertices.append(sf::Vertex(sf::Vector2f(xpos + 1, ypos + 1), currentColor));
@@ -85,35 +94,44 @@ void Map::initQuads()
 
 void Map::clearTiles()
 {
+	//Set every tile to white.
 	for(auto &i : mTiles)
 	{
 		i = sf::Color::White;
 	}
+	//Update the food tile.
 	setTile(mFoodPos, FOODCOLOR);
+	
+	//Update the graphics.
 	initQuads();
 }
 
 void Map::setTile(sf::Vector2i pos, sf::Color col)
 {
+	//Set the tile at the specified position to col, and update.
 	mTiles[pos.x + pos.y * MAP_SIZE.x] = col;
 	initQuads();
 }
 
 bool Map::isFood(sf::Vector2i pos)
 {
+	//Return if the given position is food.
 	return pos == mFoodPos;
 }
 
 void Map::collectFood()
 {
+	//Save the last position of the food.
 	sf::Vector2i lastFood = mFoodPos;
 	
+	//Update while the food is not in the same position as last time.
 	while(lastFood == mFoodPos)
 	{
 		mFoodPos.x = rand()%MAP_SIZE.x;
 		mFoodPos.y = rand()%MAP_SIZE.y;
 	}
 	
+	//Set the food tile & clear the last tile.
 	setTile(lastFood, sf::Color::White);
 	setTile(mFoodPos, FOODCOLOR);
 }

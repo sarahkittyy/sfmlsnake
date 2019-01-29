@@ -2,12 +2,16 @@
 
 Head::Head(Map* map)
 {
+	//Set the map.
 	mMap = map;
+	
+	//Set the snake to default values.
 	reset();
 }
 
 void Head::reset()
 {
+	//Initialize default values.
 	mDir = UP;
 	mPos = {10,10};
 	mFood = 0;
@@ -21,38 +25,50 @@ void Head::reset()
 
 void Head::update()
 {
+	//Update the direction the snake is going in.
 	updateDir();
 	
+	//If it's not time to update, return.
 	if(mClock.getElapsedTime() < mUpdateInterval)
 		return;
 		
 	mClock.restart();
+	//..It's time to update.
 	
+	//Clear the map (except food)
 	mMap->clearTiles();
 	
+	//Add a tail at the current position.
 	addTail();
 	
+	//Move the snake.
 	move();
 	
+	//If the movement isn't valid, return.
 	if(testMovement())
 	{
 		return;
 	}
 	
+	//Check if we're on food.
 	checkFood();
 	
+	//Update the tail objects.
 	updateTails();
 	
+	//Draw the snake.
 	draw();
 }
 
 void Head::addTail()
 {
+	//Push the tail back with the current food count(+1)
 	mTails.push_back(Tail(mPos, mFood+1));
 }
 
 void Head::updateDir()
 {
+	//Set the direction based on the current keyboard input.
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		mDir = UP;
@@ -73,6 +89,7 @@ void Head::updateDir()
 
 void Head::move()
 {
+	//Move based on the current direction.
 	switch(mDir)
 	{
 	case(UP):
@@ -92,6 +109,7 @@ void Head::move()
 
 bool Head::testMovement()
 {
+	//If the player is out of bounds, reset & return.
 	if(mPos.x >= Map::MAP_SIZE.x
 		|| mPos.x < 0
 		|| mPos.y < 0
@@ -105,6 +123,7 @@ bool Head::testMovement()
 
 void Head::checkFood()
 {
+	//If currently on food, collect it.
 	if(mMap->isFood(mPos))
 	{
 		mFood++;
@@ -114,15 +133,20 @@ void Head::checkFood()
 
 void Head::updateTails()
 {
+	//For all tails...
 	for(auto i = mTails.begin(); i != mTails.end(); )
 	{
+		//...Update the tail...
 		i->update();
+		
+		//If it's dead, erase it.
 		if(i->dead())
 		{
 			mTails.erase(i);
 		}
 		else
 		{
+			//Otherwise, next tail.
 			++i;
 		}
 	}
@@ -130,7 +154,10 @@ void Head::updateTails()
 
 void Head::draw()
 {
+	//Draw the head.
 	mMap->setTile(mPos, HEADCOLOR);
+	
+	//Draw each tail.
 	for(auto &i : mTails)
 	{
 		mMap->setTile(i.pos, TAILCOLOR);
