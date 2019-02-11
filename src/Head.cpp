@@ -33,7 +33,7 @@ void Head::update()
 		return;
 		
 	mClock.restart();
-	//..It's time to update.
+	//..It's time to update.d
 	
 	//Clear the map (except food)
 	mMap->clearTiles();
