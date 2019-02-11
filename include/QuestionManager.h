@@ -45,7 +45,8 @@ private:
 				  "Hyperactivity"},
 				 2),
 		Question("What percentage of adults in america does it affect?",
-				 {"3.1", "10.2", "1.4", "8.9"}, 0),
+				 {"3.1", "10.2", "1.4", "8.9"},
+				 0),
 		Question("Which one of these is a valid MEDICAL treatment option?",
 				 {"Yoga / Meditation",
 				  "Cognitive Behavioral Therapy",
@@ -54,7 +55,7 @@ private:
 				 1),
 		Question("Which one of these is a valid NON-MEDICAL treatment option?",
 				 {"CBT",
-				  "Sleeping"
+				  "Sleeping",
 				  "Reducing Caffeine consumption",
 				  "Drinking dairy."},
 				 2)};
