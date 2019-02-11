@@ -1,0 +1,3 @@
+/home/sarahkitty/Code/C++/Snake/CMakeFiles/rebuild_cache.dir
+/home/sarahkitty/Code/C++/Snake/CMakeFiles/a.out.dir
+/home/sarahkitty/Code/C++/Snake/CMakeFiles/edit_cache.dir
